@@ -1,3 +1,3 @@
 # TODO_app
-Install all dependencies:
+Install all dependencies: 
 ``npm install``
