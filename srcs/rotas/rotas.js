@@ -1,18 +1,22 @@
-﻿const geraPaginaTodo = require("../views/todoApp.js");
-const tarefas = require("../tarefas/tarefas.js");
-const db = require('../configs/db');
+﻿const ControlData = require("../controller/controlData");
 
 
 
+const cors = require('cors');
+const bodyParser = require('body-parser'); 
 
 module.exports = (app) => {
-//module exports como function 
-//parametro app sera substituido pelo express
-    app.get('/', (req, resp) => {
+    //module exports como function | parametro app sera substituido pelo express
 
-        db.all('SELECT * FROM TAREFAS', (err, rows) => {
-            if (err) {throw err}
-            resp.send(rows);
-        }); 
-    });
+    app.use(cors());
+    app.use(bodyParser.json()); 
+    app.use(bodyParser.urlencoded({extended: true}));
+    
+   
+
+    app.get('/', ControlData.list())
+
+    app.post('/' , ControlData.add())
+
+    app.delete('/:id', ControlData.delete())
 }
